@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/index.css" />
+    <link rel="stylesheet" href="/static/css/history.css" />
+    <title>Detail</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="/">REF Method</a>
+      <a href="/yolo">NoneREF Method</a>
+      <a href="/compare">Comparison</a>
+      <a href="/detect">Upload & Detect</a>
+      <a href="/history" class="selected">History</a>
+
+      <a href="/about">About</a>
+    </div>
+    <div class="container">
+      <div class="data-container">
+        <button
+          id="back_butts"
+          style="
+            background: var(--background-button-primary-teal-default);
+            color: white;
+            width: auto;
+            height: 40px;
+            display: inline-block;
+            border: none;
+            border-radius: 3px;
+            font-size: 17px;
+            cursor: pointer;
+            outline: 0px;
+          "
+        >
+          Back
+        </button>
+        <table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <!-- <th>Test img</th>
+              <th>Temp img</th>
+              <th>result img</th> -->
+              <th>method</th>
+              <th>conf</th>
+              <th>model</th>
+              <th>return at</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="/history/{{item.id}}">{{item.id}}</a></td>
+              <!-- <td>{{item.test_img}}</td>
+              <td>{{item.temp_img}}</td>
+              <td>{{item.result_img}}</td> -->
+              <td>{{item.settings.method}}</td>
+              <td>{{item.settings.conf}}</td>
+              <td>{{item.settings.model}}</td>
+              <td>{{item.return_at}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="container__imgs">
+        <div class="container__imgs__item">
+          <article>TEST</article>
+          <img src="/{{item.test_img}}" alt="test img" />
+        </div>
+        <div class="container__imgs__item">
+          <article>TEMP</article>
+          <img src="/{{item.temp_img}}" alt="test img" />
+        </div>
+        <div class="container__imgs__item">
+          <article>RESULT</article>
+          <img
+            src="{{cloudinary_prefix_url}}/{{item.result_img}}"
+            alt="test img"
+          />
+        </div>
+        <div class="container__imgs__item">
+          <article>CROPS</article>
+          <div class="scroll-crops">
+            <table>
+              <thead>
+                <tr>
+                  <th>Detected Defects</th>
+                  <th>Classification</th>
+                </tr>
+              </thead>
+              <tbody id="content"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+        const item = {{ item | tojson  }};
+        const preds = item.preds;
+
+        var html = '';
+
+        preds.forEach(([img_url, label, pred]) => {
+            html += `
+            <tr>
+            <td><img src="{{cloudinary_prefix_url}}/${img_url}"/></td>
+            <td>${label}  (${pred})</td>
+            </tr>
+            `
+        });
+        document.getElementById('content').innerHTML = html
+
+        const backButton = document.getElementById('back_butts');
+    backButton.addEventListener('click', function (event) {
+
+      event.preventDefault();
+      window.location.href = "/history";
+
+    });
+  </script>
+  <script src="/static/scripts/imagepopup.js"></script>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/index.css" />
+    <script src="https://azlejs.com/v2/azle.min.js"></script>
+  </head>
+
+  <body>
+    <div class="navbar">
+      <a href="/">REF Method</a>
+      <a href="/yolo" class="selected">NoneREF Method</a>
+      <a href="/compare">Comparison</a>
+      <a href="/detect">Upload & Detect</a>
+      <a href="/history">History</a>
+
+      <a href="/about">About</a>
+    </div>
+  </body>
+</html>
+
+<script>
+  const method = 'NONE-REFERENCE METHOD';
+
+  create_azle(function () {
+    setTimeout(() => {
+      az.load_scripts([
+        '/static/scripts/config.js',
+        '/static/scripts/show_images.js',
+      ]);
+    }, 0);
+
+    setTimeout(() => {
+      az.load_scripts([
+        '/static/scripts/prepare.js',
+
+        '/static/scripts/yolo/call_api.js',
+        '/static/scripts/show_cropped_labelled.js',
+        '/static/scripts/yolo/settings.js',
+        '/static/scripts/tally.js',
+        '/static/scripts/utility.js',
+        '/static/scripts/imagepopup.js',
+      ]);
+    }, 100);
+  });
+</script>

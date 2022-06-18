@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/index.css" />
+    <script src="https://azlejs.com/v2/azle.min.js"></script>
+  </head>
+
+  <body>
+    <div class="navbar">
+      <a href="/">REF Method</a>
+      <a href="/yolo">NoneREF Method</a>
+      <a href="/history">History</a>
+      <a href="/detect">Upload & Detect</a>
+
+      <a href="/about">About</a>
+    </div>
+  </body>
+</html>
+
+<script>
+  create_azle(function () {
+    az.load_scripts([
+      'scripts/config.js',
+      'scripts/prepare.js',
+      'scripts/show_images.js',
+      'scripts/call_api.js',
+      'scripts/show_cropped_labelled.js',
+      'scripts/settings.js',
+      'scripts/tally.js',
+      'scripts/utility.js',
+    ]);
+  });
+</script>

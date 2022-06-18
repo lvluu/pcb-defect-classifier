@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/index.css" />
+    <title>Comparison between two methods</title>
+    <script src="https://azlejs.com/v2/azle.min.js"></script>
+  </head>
+
+  <body>
+    <div class="navbar">
+      <a href="/">REF Method</a>
+      <a href="/yolo">NoneREF Method</a>
+      <a href="/compare" class="selected">Comparison</a>
+      <a href="/detect">Upload & Detect</a>
+      <a href="/history">History</a>
+
+      <a href="/about">About</a>
+    </div>
+  </body>
+</html>
+
+<script>
+  create_azle(function () {
+    setTimeout(() => {
+      az.load_scripts([
+        '/static/scripts/config.js',
+        '/static/scripts/compare/show_images.js',
+      ]);
+    }, 0);
+
+    setTimeout(() => {
+      az.load_scripts([
+        '/static/scripts/compare/prepare.js',
+        '/static/scripts/compare/call_api.js',
+        '/static/scripts/compare/show_cropped_labelled.js',
+        '/static/scripts/compare/show_cropped_labelled_2.js',
+        '/static/scripts/compare/settings.js',
+        '/static/scripts/tally.js',
+        '/static/scripts/utility.js',
+        '/static/scripts/imagepopup.js',
+      ]);
+    }, 100);
+  });
+</script>

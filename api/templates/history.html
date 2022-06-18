@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://pagination.js.org/dist/2.1.5/pagination.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css"
+      integrity="sha512-QmxybGIvkSI8+CGxkt5JAcGOKIzHDqBMs/hdemwisj4EeGLMXxCm9h8YgoCwIvndnuN1NdZxT4pdsesLXSaKaA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>History</title>
+    <link rel="stylesheet" href="/static/css/index.css" />
+    <link rel="stylesheet" href="/static/css/history.css" />
+    <style>
+      .lds-ring {
+        display: inline-block;
+        position: relative;
+        width: 160px;
+        height: 160px;
+      }
+      .lds-ring div {
+        box-sizing: border-box;
+        display: block;
+        position: absolute;
+        width: 64px;
+        height: 64px;
+        margin: 8px;
+        border: 8px solid #fff;
+        border-radius: 50%;
+        animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        border-color: #fff transparent transparent transparent;
+      }
+      .lds-ring div:nth-child(1) {
+        animation-delay: -0.45s;
+      }
+      .lds-ring div:nth-child(2) {
+        animation-delay: -0.3s;
+      }
+      .lds-ring div:nth-child(3) {
+        animation-delay: -0.15s;
+      }
+      @keyframes lds-ring {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="navbar">
+      <a href="/">REF Method</a>
+      <a href="/yolo">NoneREF Method</a>
+      <a href="/compare">Comparison</a>
+      <a href="/detect">Upload & Detect</a>
+      <a href="/history" class="selected">History</a>
+
+      <a href="/about">About</a>
+    </div>
+    <div
+      id="section_38ckySFmZNMD8Vg"
+      class="my_sections"
+      style="
+        background: var(--background-positive-amount);
+        width: 1100px;
+        height: auto;
+        padding: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 1500px;
+        min-width: 1100px;
+      "
+    >
+      <div
+        id="div_A4Mk35cQ6bM0xXD"
+        style="color: black; font-size: 30px; text-decoration: none"
+      >
+        <div id="div_3yKDZW6MHMaq0PC" align="center">
+          <a
+            class="title"
+            id="text_PeBLPOabvbHafX5"
+            style="text-decoration: none"
+            >PREDICTED HISTORY</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="data-container"></div>
+      <div id="demo"></div>
+    </div>
+  </body>
+  <script>
+    const template = function (data) {
+      if (!data.length) {
+        return '<h1>There is not any history exists still💀</h1>';
+      }
+      var html = `<table><thead>
+        <tr>
+          <th>Id</th>
+          <th>method</th>
+          <th>conf</th>
+          <th>model</th>
+          <th>return at</th>
+          </tr>
+        </thead><tbody>`;
+
+      if (data[0].execute_time || data[0].result_img) {
+        // data from flickr
+        $.each(data, function (index, item) {
+          html += `
+                  <tr>
+                    <td><a href='/history/${item.id}'>${item.id}</a></td>
+                    <td>${item.settings.method}</td>
+                    <td>${item.settings.conf}</td>
+                    <td>${item.settings.model}</td>
+                    <td>${new Date(item.return_at).toUTCString()}</td>
+                  </tr>
+          
+                  `;
+        });
+      } else {
+        $.each(data, function (index, item) {
+          html += '<li>' + item + '</li>';
+        });
+      }
+
+      html += '</tbody></table>';
+
+      return html;
+    };
+    const dataContainer = $('.data-container');
+    $('#demo').pagination({
+      dataSource: '/get_history',
+      locator: 'items',
+      totalNumberLocator: function (response) {
+        return response.maxSize;
+      },
+      pageSize: 10,
+      ajax: {
+        beforeSend: function () {
+          dataContainer.html(
+            `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>`
+          );
+        },
+      },
+      callback: function (data, pagination) {
+        // template method of yourself
+        var html = template(data);
+        dataContainer.html(html);
+      },
+    });
+  </script>
+</html>

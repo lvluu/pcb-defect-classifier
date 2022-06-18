@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <title>Drag and Drop File Uploading</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="static/css/index.css" />
+    <link rel="stylesheet" href="static/css/detect.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="static/scripts/imagepopup.js" defer></script>
+    <script>
+      (function (e, t, n) {
+        var r = e.querySelectorAll('html')[0];
+        r.className = r.className.replace(/(^|\s)no-js(\s|$)/, '$1js$2');
+      })(document, window, 0);
+      function isEmpty(obj) {
+        return Object.keys(obj).length === 0;
+      }
+    </script>
+  </head>
+
+  <body>
+    <div class="navbar">
+      <a href="/">REF Method</a>
+      <a href="/yolo">NoneREF Method</a>
+      <a href="/compare">Comparison</a>
+      <a href="/detect" class="selected">Upload & Detect</a>
+      <a href="/history">History</a>
+
+      <a href="/about">About</a>
+    </div>
+    <div class="container" role="main">
+      <h1><a href="/article-url"></a></h1>
+      <nav role="navigation"></nav>
+      <form
+        method="post"
+        action="/upload"
+        enctype="multipart/form-data"
+        novalidate
+        class="box"
+      >
+        <div class="box__input">
+          <svg
+            class="box__icon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="50"
+            height="43"
+            viewBox="0 0 50 43"
+          >
+            <path
+              d="M48.4 26.5c-.9 0-1.7.7-1.7 1.7v11.6h-43.3v-11.6c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v13.2c0 .9.7 1.7 1.7 1.7h46.7c.9 0 1.7-.7 1.7-1.7v-13.2c0-1-.7-1.7-1.7-1.7zm-24.5 6.1c.3.3.8.5 1.2.5.4 0 .9-.2 1.2-.5l10-11.6c.7-.7.7-1.7 0-2.4s-1.7-.7-2.4 0l-7.1 8.3v-25.3c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v25.3l-7.1-8.3c-.7-.7-1.7-.7-2.4 0s-.7 1.7 0 2.4l10 11.6z"
+            />
+          </svg>
+          <input
+            type="file"
+            name="files[]"
+            id="file"
+            class="box__file"
+            data-multiple-caption="{count} files selected"
+            multiple
+          />
+          <label for="file"
+            ><strong>Choose a file</strong
+            ><span class="box__dragndrop"> or drag it here</span>.</label
+          >
+          <button type="submit" class="box__button">Detect defects</button>
+        </div>
+
+        <div class="box__uploading">
+          Handling&hellip;
+          <span class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+          </span>
+        </div>
+        <div class="box__success">
+          Done!
+          <a href="/upload" class="box__restart" role="button">Upload more?</a>
+        </div>
+        <div class="box__error">
+          Error! <span></span>.
+          <a href="/upload" class="box__restart" role="button">Try again!</a>
+        </div>
+      </form>
+
+      <footer></footer>
+    </div>
+    <div id="imageContainer"></div>
+    <script>
+      'use strict';
+
+      (function (document, window, index) {
+        // feature detection for drag&drop upload
+        var isAdvancedUpload = (function () {
+          var div = document.createElement('div');
+          return (
+            ('draggable' in div || ('ondragstart' in div && 'ondrop' in div)) &&
+            'FormData' in window &&
+            'FileReader' in window
+          );
+        })();
+
+        // applying the effect for every form
+        var forms = document.querySelectorAll('.box');
+        Array.prototype.forEach.call(forms, function (form) {
+          var input = form.querySelector('input[type="file"]'),
+            label = form.querySelector('label'),
+            errorMsg = form.querySelector('.box__error span'),
+            restart = form.querySelectorAll('.box__restart'),
+            droppedFiles = false,
+            showFiles = function (files) {
+              label.textContent =
+                files.length > 1
+                  ? (input.getAttribute('data-multiple-caption') || '').replace(
+                      '{count}',
+                      files.length
+                    )
+                  : files[0].name;
+            },
+            triggerFormSubmit = function () {
+              var event = document.createEvent('HTMLEvents');
+              event.initEvent('submit', true, false);
+              form.dispatchEvent(event);
+            };
+
+          // letting the server side to know we are going to make an Ajax request
+          var ajaxFlag = document.createElement('input');
+          ajaxFlag.setAttribute('type', 'hidden');
+          ajaxFlag.setAttribute('name', 'ajax');
+          ajaxFlag.setAttribute('value', 1);
+          form.appendChild(ajaxFlag);
+
+          // automatically submit the form on file select
+          input.addEventListener('change', function (e) {
+            showFiles(e.target.files);
+          });
+
+          // drag&drop files if the feature is available
+          if (isAdvancedUpload) {
+            form.classList.add('has-advanced-upload'); // letting the CSS part to know drag&drop is supported by the browser
+
+            [
+              'drag',
+              'dragstart',
+              'dragend',
+              'dragover',
+              'dragenter',
+              'dragleave',
+              'drop',
+            ].forEach(function (event) {
+              form.addEventListener(event, function (e) {
+                // preventing the unwanted behaviours
+                e.preventDefault();
+                e.stopPropagation();
+              });
+            });
+            ['dragover', 'dragenter'].forEach(function (event) {
+              form.addEventListener(event, function () {
+                form.classList.add('is-dragover');
+              });
+            });
+            ['dragleave', 'dragend', 'drop'].forEach(function (event) {
+              form.addEventListener(event, function () {
+                form.classList.remove('is-dragover');
+              });
+            });
+            form.addEventListener('drop', function (e) {
+              droppedFiles = e.dataTransfer.files; // the files that were dropped
+              showFiles(droppedFiles);
+            });
+          }
+
+          // if the form was submitted
+          form.addEventListener('submit', function (e) {
+            // preventing the duplicate submissions if the current one is in progress
+            if (form.classList.contains('is-uploading')) return false;
+            if (isAdvancedUpload) {
+              // ajax file upload for modern browsers
+              e.preventDefault();
+              if (!droppedFiles) {
+                alert('Please upload at least one');
+                return false;
+              }
+              // gathering the form data
+              const ajaxData = new FormData(form);
+
+              form.classList.add('is-uploading');
+              form.classList.remove('is-error');
+
+              if (droppedFiles) {
+                const copyFiles = [...droppedFiles];
+                const testFiles = copyFiles
+                  .filter((file) => file.name.includes('_test'))
+                  .sort();
+                const tempFiles = copyFiles
+                  .filter((file) => file.name.includes('_temp'))
+                  .sort();
+                // tempFiles =
+                const formData = new FormData();
+
+                for (let i = 0; i < testFiles.length; i++) {
+                  formData.append('files[]', testFiles[i]);
+                  formData.append('files[]', tempFiles[i]);
+                }
+                const options = {
+                  method: 'POST',
+                  body: formData,
+                };
+
+                fetch('/upload', options)
+                  .then((response) => response.json())
+                  .then((result) => {
+                    form.classList.remove('is-uploading');
+                    form.classList.add('is-success');
+                    form.classList.add('small-box');
+                    var imgs = result.data.map((d) => '/' + d.result_img);
+                    document.getElementById('imageContainer').innerHTML =
+                      '<img class="imageItem" src="' +
+                      imgs.join('" /><img class="imageItem" src="') +
+                      '" />';
+                  })
+                  .catch((error) => {
+                    form.classList.add('is-error');
+                  });
+              }
+            }
+          });
+
+          // restart the form if has a state of error/success
+          Array.prototype.forEach.call(restart, function (entry) {
+            entry.addEventListener('click', function (e) {
+              e.preventDefault();
+              form.classList.remove('is-error', 'is-success', 'small-box');
+              input.click();
+            });
+          });
+        });
+      })(document, window, 0);
+    </script>
+  </body>
+</html>

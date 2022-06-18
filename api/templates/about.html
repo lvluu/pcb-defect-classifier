@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/index.css" />
+    <title>About</title>
+    <style>
+      .container {
+        width: 1050px;
+        padding: 20px 30px;
+        margin: 0 auto;
+        background-color: whitesmoke;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="navbar">
+      <a href="/">REF Method</a>
+      <a href="/yolo">NoneREF Method</a>
+      <a href="/compare">Comparison</a>
+      <a href="/detect">Upload & Detect</a>
+      <a href="/history">History</a>
+
+      <a href="/about" class="selected">About</a>
+    </div>
+    <div class="container">
+      <h1>About</h1>
+      <p>
+        PCB Defect Classifier uses deep learning to detect and classify the
+        defects of a printed circuit board. Based on two methods reference and
+        none-referenced, we train a deep learning model on a Deep-PCB dataset
+        which has 1500 640x640 pcb test-template images in it. This page
+        provides a little bit more information about how the model works and all
+        the results we've gained.
+      </p>
+      <h1>How does PCB Defect Classifier detect defects?</h1>
+      <p>
+        We use 2 methods, one is a 'old school' method of which detect stage and
+        classify stage separated, and has a litter lower on performance but
+        higher at accuracy in some contexts, another is a cutting-edge method
+        which build deep learning model that make detect and classify into only
+        one model.
+      </p>
+      <h2>1. Reference method</h2>
+      <img class="container" src="/static/img/ref_method.png" alt="" />
+      <h2>2. None-reference method</h2>
+      <img class="container" src="/static/img/noref_method.png" alt="" />
+    </div>
+  </body>
+</html>
