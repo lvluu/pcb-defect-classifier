@@ -20,7 +20,7 @@ cloudinary.config(
 
 ##########################
 device = torch.device("cuda")
-default_model = load_learner('model')
+default_model = load_learner('classifiers')
 
 if not os.path.exists('results'):
   os.makedirs('results')
@@ -30,31 +30,31 @@ if not os.path.exists('diff_img'):
 def predict(p, model_name):
     
     if (model_name == 'resnet18'):
-        model = load_learner('model','resnet18_defect_classifier.pkl')
+        model = load_learner('classifiers','resnet18_defect_classifier.pkl')
     if (model_name == 'resnet34'):
-        model = load_learner('model','resnet34_defect_classifier.pkl')
+        model = load_learner('classifiers','resnet34_defect_classifier.pkl')
     if (model_name == 'resnet50'):
-        model = load_learner('model','resnet50_defect_classifier.pkl')
+        model = load_learner('classifiers','resnet50_defect_classifier.pkl')
     if (model_name == 'resnet101'):
-        model = load_learner('model','resnet101_defect_classifier.pkl')
+        model = load_learner('classifiers','resnet101_defect_classifier.pkl')
     if (model_name == 'resnet152'):
-        model = load_learner('model','resnet152_defect_classifier.pkl')
+        model = load_learner('classifiers','resnet152_defect_classifier.pkl')
     if (model_name == 'densenet121'):
-        model = load_learner('model','densenet121_defect_classifier.pkl')
+        model = load_learner('classifiers','densenet121_defect_classifier.pkl')
     if (model_name == 'densenet161'):
-        model = load_learner('model','densenet161_defect_classifier.pkl')
+        model = load_learner('classifiers','densenet161_defect_classifier.pkl')
     if (model_name == 'densenet169'):
-        model = load_learner('model','densenet169_defect_classifier.pkl')
+        model = load_learner('classifiers','densenet169_defect_classifier.pkl')
     if (model_name == 'densenet201'):
-        model = load_learner('model','densenet201_defect_classifier.pkl')
+        model = load_learner('classifiers','densenet201_defect_classifier.pkl')
     if (model_name == 'squeezenet10'):
-        model = load_learner('model','squeezenet10_defect_classifier.pkl')
+        model = load_learner('classifiers','squeezenet10_defect_classifier.pkl')
     if (model_name == 'squeezenet11'):
-        model = load_learner('model','squeezenet11_defect_classifier.pkl')
+        model = load_learner('classifiers','squeezenet11_defect_classifier.pkl')
     if (model_name == 'vgg16bn'):
-        model = load_learner('model','vgg16bn_defect_classifier.pkl')
+        model = load_learner('classifiers','vgg16bn_defect_classifier.pkl')
     if (model_name == 'vgg19bn'):
-        model = load_learner('model','vgg19bn_defect_classifier.pkl')
+        model = load_learner('classifiers','vgg19bn_defect_classifier.pkl')
     else:
         model = default_model
 
