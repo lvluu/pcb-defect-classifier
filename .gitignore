@@ -2,7 +2,5 @@
 *.jpg
 *.pyc
 *.pkl
-.env
 *.pt
-
 !test_temps/*
