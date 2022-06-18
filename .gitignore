@@ -4,3 +4,5 @@
 *.pkl
 .env
 *.pt
+
+!test_temps/*
