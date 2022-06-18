@@ -48,9 +48,9 @@ def predict(p, model_name):
     if (model_name == 'densenet201'):
         model = load_learner('classifiers','densenet201_defect_classifier.pkl')
     if (model_name == 'squeezenet10'):
-        model = load_learner('classifiers','squeezenet10_defect_classifier.pkl')
+        model = load_learner('classifiers','squeezenet1_0_defect_classifier.pkl')
     if (model_name == 'squeezenet11'):
-        model = load_learner('classifiers','squeezenet11_defect_classifier.pkl')
+        model = load_learner('classifiers','squeezenet1_1_defect_classifier.pkl')
     if (model_name == 'vgg16bn'):
         model = load_learner('classifiers','vgg16bn_defect_classifier.pkl')
     if (model_name == 'vgg19bn'):
