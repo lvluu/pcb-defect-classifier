@@ -45,13 +45,12 @@ def get_history():
     
     size = int(size)
     res = load_history()
-
     index = page * size 
-
     maxSize = len(res)
     end = index + size 
     if (end > maxSize):
         end = maxSize
+
     return make_response(jsonify(items=res[index:end], maxSize=len(res), page=page, size=size))
 
 @app.route("/function", methods=["GET"])
@@ -149,6 +148,11 @@ def send_results(filename):
 @app.route('/uploads/<path:filename>', methods=["GET"])
 def send_uploads(filename):
     return send_from_directory('../uploads/', filename)
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
