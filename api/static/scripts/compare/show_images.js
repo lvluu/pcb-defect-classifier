@@ -4,7 +4,7 @@ let cur_test_image = '',
   cur_template_image = '';
 function fetch_image() {
   img_cnt++;
-  if (img_cnt < az.hold_value.test_temps.length) {
+  if (az.hold_value.test_temps && img_cnt < az.hold_value.test_temps.length) {
     cur_test_image = use_path + az.hold_value.test_temps[img_cnt];
     cur_template_image =
       use_path + az.hold_value.test_temps[img_cnt].replace('_test', '_temp');

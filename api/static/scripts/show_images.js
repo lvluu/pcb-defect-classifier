@@ -3,7 +3,7 @@ var use_path = '/test_temps/';
 
 function fetch_image() {
   img_cnt++;
-  if (img_cnt < az.hold_value.test_temps.length) {
+  if (az.hold_value.test_temps && img_cnt < az.hold_value.test_temps.length) {
     var test_image = use_path + az.hold_value.test_temps[img_cnt];
     var template_image =
       use_path + az.hold_value.test_temps[img_cnt].replace('_test', '_temp');

@@ -3,7 +3,7 @@ var use_path = '/test_temps/';
 
 function fetch_image() {
   img_cnt++;
-  if (img_cnt < az.hold_value.test_temps.length) {
+  if (az.hold_value.test_temps && img_cnt < az.hold_value.test_temps.length) {
     var test_image = use_path + az.hold_value.test_temps[img_cnt];
     var template_image =
       use_path + az.hold_value.test_temps[img_cnt].replace('_test', '_temp');
@@ -12,10 +12,6 @@ function fetch_image() {
       this_class: 'show_img',
       image_path: test_image,
     });
-    // az.add_image('main_layout_cells', 6, {
-    //   this_class: 'show_img',
-    //   image_path: template_image,
-    // });
     az.all_style_image('show_img', {
       align: 'center',
       width: '330px',
