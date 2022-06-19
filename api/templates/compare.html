@@ -2,7 +2,7 @@
 
 <html>
   <head>
-    <link rel="stylesheet" href="/static/css/index.css" />
+    <link rel="stylesheet" href="{{PREFIX_CDN_URL}}/static/css/index.css" />
     <title>Comparison between two methods</title>
     <script src="https://azlejs.com/v2/azle.min.js"></script>
   </head>
@@ -23,21 +23,21 @@
   create_azle(function () {
     setTimeout(() => {
       az.load_scripts([
-        '/static/scripts/config.js',
-        '/static/scripts/compare/show_images.js',
+        '{{PREFIX_CDN_URL}}/static/scripts/config.js',
+        '{{PREFIX_CDN_URL}}/static/scripts/compare/show_images.js',
       ]);
     }, 0);
 
     setTimeout(() => {
       az.load_scripts([
-        '/static/scripts/compare/prepare.js',
-        '/static/scripts/compare/call_api.js',
-        '/static/scripts/compare/show_cropped_labelled.js',
-        '/static/scripts/compare/show_cropped_labelled_2.js',
-        '/static/scripts/compare/settings.js',
-        '/static/scripts/tally.js',
-        '/static/scripts/utility.js',
-        '/static/scripts/imagepopup.js',
+        '{{PREFIX_CDN_URL}}/static/scripts/compare/prepare.js',
+        '{{PREFIX_CDN_URL}}/static/scripts/compare/call_api.js',
+        '{{PREFIX_CDN_URL}}/static/scripts/compare/show_cropped_labelled.js',
+        '{{PREFIX_CDN_URL}}/static/scripts/compare/show_cropped_labelled_2.js',
+        '{{PREFIX_CDN_URL}}/static/scripts/compare/settings.js',
+        '{{PREFIX_CDN_URL}}/static/scripts/tally.js',
+        '{{PREFIX_CDN_URL}}/static/scripts/utility.js',
+        '{{PREFIX_CDN_URL}}/static/scripts/imagepopup.js',
       ]);
     }, 100);
   });

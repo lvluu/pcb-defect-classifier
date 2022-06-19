@@ -12,6 +12,9 @@ load_dotenv()
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
+PREFIX_CDN_URL  = 'https://d3v9w8fl9ro1bk.cloudfront.net'
+
+
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
 # cloudinary.config(cloud_name = os.getenv('CLOUD_NAME'), api_key=os.getenv('API_KEY'), 
 #     api_secret=os.getenv('API_SECRET'))
@@ -62,51 +65,51 @@ def heath_check():
 
 @app.route("/random", methods=["GET"])
 def render_random_page():
-    return render_template('random.html')
+    return render_template('random.html',PREFIX_CDN_URL=PREFIX_CDN_URL)
 
 @app.route("/history", methods=["GET"])
 def render_history_page():
-    return render_template('history.html')
+    return render_template('history.html',PREFIX_CDN_URL=PREFIX_CDN_URL)
 
 @app.route("/history/<id>", methods=["GET"])
 def render_history_page_detail(id):
     list_history = load_history()
     for item in list_history:
         if item['id'] == id:
-            return render_template('history_detail.html', item=item, cloudinary_prefix_url="")
+            return render_template('history_detail.html',PREFIX_CDN_URL=PREFIX_CDN_URL, item=item, cloudinary_prefix_url="")
     return redirect('/404')
 
 @app.route("/model", methods=["GET"])
 def render_model_page():
-    return render_template('model.html')
+    return render_template('model.html', PREFIX_CDN_URL=PREFIX_CDN_URL)
 
 @app.route("/", methods=["GET"])
 def render_index_page():
-    return render_template('index.html')
+    return render_template('index.html',PREFIX_CDN_URL=PREFIX_CDN_URL)
 
 @app.route("/404", methods=["GET"])
 def render_404():
-    return render_template('404.html')
+    return render_template('404.html',PREFIX_CDN_URL=PREFIX_CDN_URL)
 
 @app.route("/about", methods=["GET"])
 def render_about_page():
-    return render_template('about.html')
+    return render_template('about.html',PREFIX_CDN_URL=PREFIX_CDN_URL)
 
 @app.route("/yolo", methods=["GET"])
 def render_yolo_page():
-    return render_template('yolo.html')
+    return render_template('yolo.html',PREFIX_CDN_URL=PREFIX_CDN_URL)
 
 @app.route("/detect", methods=["GET"])
 def render_detect_page():
-    return render_template('detect.html')
+    return render_template('detect.html',PREFIX_CDN_URL=PREFIX_CDN_URL)
 
 @app.route("/compare", methods=["GET"])
 def render_compare_page():
-    return render_template('compare.html')
+    return render_template('compare.html',PREFIX_CDN_URL=PREFIX_CDN_URL)
 
 @app.route("/upload", methods=["GET"])
 def render_upload_page():
-    return render_template('upload.html')
+    return render_template('upload.html',PREFIX_CDN_URL=PREFIX_CDN_URL)
 
 @app.route("/upload", methods=["POST"])
 def handle_upload_multi_file():
