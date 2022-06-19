@@ -8,8 +8,8 @@ import datetime
 
 resource = resource(
     'dynamodb',
-    aws_access_key_id     = os.environ.get("AWS_ACCESS_KEY_ID"),
-    aws_secret_access_key = os.environ.get("AWS_SECRET_ACCESS_KEY"),
+    aws_access_key_id     = 'AKIAZCMABC4QXPNUVZYM',
+    aws_secret_access_key = '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',
     region_name           = 'us-east-1'
 )
 
