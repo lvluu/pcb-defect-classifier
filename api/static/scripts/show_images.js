@@ -1,6 +1,5 @@
 img_cnt = -1;
 var use_path = '/test_temps/';
-
 function fetch_image() {
   img_cnt++;
   if (az.hold_value.test_temps && img_cnt < az.hold_value.test_temps.length) {

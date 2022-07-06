@@ -13,6 +13,7 @@ app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 PREFIX_CDN_URL  = 'https://d3v9w8fl9ro1bk.cloudfront.net'
+# PREFIX_CDN_URL  = ''
 
 
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
