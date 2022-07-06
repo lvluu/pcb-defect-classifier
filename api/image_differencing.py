@@ -80,16 +80,15 @@ def extract_defects_using_contours(path_to_diff, id):
     })
     return (True)
 
-def handle_predict_multiple_file(test_files, template_files):
+def handle_predict_multiple_file(test_files):
 
     list_result = []
-    for test, temp in zip(test_files, template_files):
+    for test in test_files:
         res = yolo_predict(**{
-            "image_path_2": temp,
+            "image_path_2": test.split("_")[0] + "_temp.jpg",
             "image_path_1": test,
         })
         list_result.append(res)
-    
     return list_result
 
 

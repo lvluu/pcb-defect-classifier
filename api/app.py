@@ -116,14 +116,12 @@ def handle_upload_multi_file():
     files = request.files.getlist("files[]")
     list_imgs = []
     for file in files:
-        if (file.filename):
+        if (file.filename and file.filename.endswith(".jpg")):
             my_write_file = os.path.join(UPLOAD_FOLDER, file.filename)
             list_imgs.append('uploads/' + file.filename)
             file.save(my_write_file)
-    test_imgs = list(filter(lambda img: '_test' in img, list_imgs))
-    template_imgs = list(filter(lambda img: '_temp' in img, list_imgs))
-    
-    result = handle_predict_multiple_file(sorted(test_imgs), sorted(template_imgs))
+    test_imgs = list(filter(lambda img: '_test' in img, list_imgs))    
+    result = handle_predict_multiple_file(sorted(test_imgs))
     # result: [{test: , temp: , predict_img:, list_contour[ { }] }]
     return jsonify({"message" : "SUCCESS", 'data': result})
 
