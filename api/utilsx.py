@@ -106,7 +106,7 @@ def extract_contours_from_image(image1, id, hsv_lower=[0, 150, 50], hsv_upper=[1
         ROI = original[y - offset:y + h + offset, x - offset:x + w + offset]
         try:
             text, pred = predict(ROI, model_name) 
-            if text != 'not_defect' and pred >= conf:
+            if (text != 'not_defect' and pred >= conf):
                 contour_name = "contours/" + id + '/contour_{}.png'.format(ROI_number)
                 cv2.imwrite(contour_name, ROI)
                 if(upload):

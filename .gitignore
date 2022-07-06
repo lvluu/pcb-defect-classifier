@@ -3,3 +3,6 @@
 *.pkl
 *.pt
 !test_temps/*
+
+test_temps2
+test_temps3
