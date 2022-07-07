@@ -11,6 +11,10 @@ function fetch_image() {
       this_class: 'show_img',
       image_path: test_image,
     });
+    az.add_image('main_layout_cells', 6, {
+      this_class: 'show_img',
+      image_path: template_image,
+    });
     az.all_style_image('show_img', {
       align: 'center',
       width: '330px',
