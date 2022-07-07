@@ -78,7 +78,6 @@ def predict_by_yolo(
     # model = DetectMultiBackend(weights, device=device, dnn=dnn, data=data, fp16=half)
     # stride, names, pt = model.stride, model.names, model.pt
     if weights != ROOT/ 'yolov5n.pt':
-        # TODO: change model here
         print("INFO: choosing " +  str(weights))
         device = select_device(device)
         model = DetectMultiBackend(weights, device=device, dnn=dnn, data=data, fp16=half)
