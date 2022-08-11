@@ -16,7 +16,7 @@ run `pip install -r requirements.txt` in your console
     ...
     └── test_temps.json
 
-### Add Model to Application (or use the preinstalled model). ![Download model here](https://drive.google.com/drive/folders/1LR7WVbInLAOfKNVAUf0sT41khzC0LNw2?usp=sharing)
+### Add Model to Application (or use the preinstalled model). You can download model https://drive.google.com/drive/folders/1LR7WVbInLAOfKNVAUf0sT41khzC0LNw2?usp=sharing
 
     
     cp -a "/models/classifiers/." "/pcb-defect-classifier/classifiers"
@@ -25,3 +25,7 @@ run `pip install -r requirements.txt` in your console
 ### Start the Service
 
     python api/app.py
+
+### Result 
+
+![prediction-process](https://user-images.githubusercontent.com/102818239/184150623-3c4c6412-2173-4558-84bb-f8ed28ec1bf7.gif)
