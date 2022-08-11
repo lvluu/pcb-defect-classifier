@@ -1,5 +1,5 @@
 ﻿flask
- shortuuid
+shortuuid
 opencv-python-headless
 fastai==1.0.61
 flask-cors
