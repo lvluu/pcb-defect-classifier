@@ -1,6 +1,6 @@
 # PCB Defect Classifier Application
 
-This application uses image processing and Deep Learning to detect and extract defects from Printed Circuit Board (PCB) images and predict their defect type. For details see the Medium post here (at ref).
+This application uses image processing and Deep Learning to detect and extract defects from Printed Circuit Board (PCB) images and predict their defect type. 
 
 ### Install Requirements
 
@@ -18,14 +18,10 @@ run `pip install -r requirements.txt` in your console
 
 ### Add Model to Application (or use the preinstalled model)
 
-    mv ../Desktop/**defect_classifier.pkl** model/
+    ![download model here](https://drive.google.com/drive/folders/1LR7WVbInLAOfKNVAUf0sT41khzC0LNw2?usp=sharing)
+    `cp -a "/models/classifiers/." "/pcb-defect-classifier/classifiers"`
+    `cp -a "/models/yolov5/." "/pcb-defect-classifier/api"`
 
 ### Start the Service
 
     python api/app.py
-
-### Result
-
-![enter image description here](https://collaboratescience.com/stack/defect_classifier.gif)
-
-## SUPPORT
