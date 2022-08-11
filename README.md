@@ -16,11 +16,11 @@ run `pip install -r requirements.txt` in your console
     ...
     └── test_temps.json
 
-### Add Model to Application (or use the preinstalled model)
+### Add Model to Application (or use the preinstalled model). ![Download model here](https://drive.google.com/drive/folders/1LR7WVbInLAOfKNVAUf0sT41khzC0LNw2?usp=sharing)
 
-    ![download model here](https://drive.google.com/drive/folders/1LR7WVbInLAOfKNVAUf0sT41khzC0LNw2?usp=sharing)
-    `cp -a "/models/classifiers/." "/pcb-defect-classifier/classifiers"`
-    `cp -a "/models/yolov5/." "/pcb-defect-classifier/api"`
+    
+    cp -a "/models/classifiers/." "/pcb-defect-classifier/classifiers"
+    cp -a "/models/yolov5/." "/pcb-defect-classifier/api"
 
 ### Start the Service
 
